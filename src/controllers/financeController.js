@@ -1,9 +1,9 @@
 import * as financeRepository from "../repositories/financeRepository.js";
 
 async function postEvents(req, res) {
-    try {
-        const userId = res.locals.user.idUser;
-    
+    const userId = res.locals.user.id;
+
+    try {    
         const { value, type } = req.body;
     
         if (!value || !type) {
@@ -29,6 +29,22 @@ async function postEvents(req, res) {
     }
 }
 
+async function getEvents(req, res) {
+    const userId = res.locals.user.id;
+    
+    try {    
+        const events = await financeRepository.findFinancialEvents({ userId })
+
+        if (events) {
+            return res.send(events);
+        }
+    } catch (err) {
+        console.error(err);
+        return res.sendStatus(500);
+    }  
+}
+
 export {
     postEvents,
+    getEvents,
 }

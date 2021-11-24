@@ -13,6 +13,20 @@ async function create({ userId, value, type }) {
     }
 }
 
+async function findFinancialEvents({ userId }) {
+    try {
+        const events = await connection.query(
+            `SELECT * FROM "financialEvents" WHERE "userId"=$1 ORDER BY "id" DESC`,
+            [userId]
+        );
+    
+        return events.rows;
+    } catch (error) {
+        return false;
+    }
+}
+
 export {
     create,
+    findFinancialEvents,
 }
