@@ -1,8 +1,6 @@
 import express from "express";
 import cors from "cors";
-import jwt from "jsonwebtoken";
 
-import connection from "./database.js";
 import * as userController from "./controllers/userController.js";
 import * as financeController from "./controllers/financeController.js";
 import { auth } from "./middlewares/auth.js";
