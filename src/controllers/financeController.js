@@ -44,7 +44,23 @@ async function getEvents(req, res) {
     }  
 }
 
+async function sumEvents(req, res) {
+    const userId = res.locals.user.id;
+    
+    try {    
+        const sum = await financeRepository.sumFinancialEvents({ userId })
+
+        if ({sum}) {
+            return res.send({ sum });
+        }
+      } catch (err) {
+        console.error(err);
+        return res.sendStatus(500);
+      }  
+}
+
 export {
     postEvents,
     getEvents,
+    sumEvents,
 }
